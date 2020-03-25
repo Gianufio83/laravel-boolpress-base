@@ -1,8 +1,14 @@
 @extends('chronicle_blog.layouts.layout')
-  
+  @section('header')
+      @if (session('id_delete'))
+        <div class="alert aert-success">
+          Hai cancellato l'articlo con id: {{session('id_delete')}}
+        </div>
+      @endif
+  @endsection
     @section('main-content')
       <div class="wrapper">
-        <h1 class="text-center">Chronicle Blog</h1>
+        <h1 class="text-center">Free Blog</h1>
       </div>
         <table class="table">
         <thead>
@@ -35,6 +41,7 @@
                   <button class="btn btn-danger" type="submit">DELETE</button>
                 </form>
               </td>
+              <td><a class="btn btn-primary" href="{{route('chronicle.edit', $chronicle->id)}}">UPDATE</a></td>
             </tr>
           @endforeach
         </tbody>

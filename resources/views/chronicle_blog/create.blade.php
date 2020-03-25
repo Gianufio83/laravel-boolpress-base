@@ -1,7 +1,7 @@
 @extends('chronicle_blog.layouts.layout')
 
   @section('main-content')
-      <h1 class="text-center">Inserisci un nuovo aticolo nel blog</h1>
+      <h1 class="text-center">Inserisci un nuovo articolo nel blog</h1>
   @if ($errors->any()) 
     <div class="alert alert-danger"> 
       <ul> 

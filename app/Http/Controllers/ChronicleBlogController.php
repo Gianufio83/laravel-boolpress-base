@@ -66,6 +66,9 @@ class ChronicleBlogController extends Controller
      */
     public function show(Chronicle $chronicle)
     {
+        if (empty($chronicle)) {
+            abort('404');
+        }
         return view('chronicle_blog.show', compact('chronicle'));
     }
 
@@ -75,9 +78,13 @@ class ChronicleBlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Chronicle $chronicle)
     {
-        //
+        if (empty($chronicle)) {
+            abort('404');
+        }
+
+        return view('chronicle_blog.edit', compact('chronicle'));
     }
 
     /**
@@ -89,7 +96,17 @@ class ChronicleBlogController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $chronicle = Chronicle::find($id);
+        if (empty($chronicle)) {
+            abort('404');
+        }
+        $data = $request->all();
+        $request->validate($this->validationBlog);
+        $updated = $chronicle->update($data);
+        if ($updated) {
+            $chronicle = $chronicle::find($id);
+            return redirect()->route('chronicle.show', $chronicle);
+        }
     }
 
     /**
@@ -106,6 +123,8 @@ class ChronicleBlogController extends Controller
             'id' => $id,
             'chronicles' => Chronicle::all()
         ];
-        return view('chronicle_blog.index', $data);
+        return redirect()->route('chronicle.index')->with('id_delete', $id);
+
+        // return view('chronicle_blog.index', $data);
     }
 }
