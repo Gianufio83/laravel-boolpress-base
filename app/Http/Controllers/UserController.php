@@ -46,7 +46,11 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::find($id);
+        if (empty($user)) {
+            abort('404');
+        }
+        return view('user.show', compact('user'));
     }
 
     /**
