@@ -17,4 +17,5 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 Route::resource('chronicle', 'ChronicleBlogController');
+Route::resource('user', 'UserController');
 
